@@ -24,17 +24,17 @@ und Bild-Links. In Gruppen antwortest du mit `/sauce` auf ein Bild.
 2. Kostenlosen SauceNAO-Account anlegen und den API-Key holen: <https://saucenao.com/user.php?page=search-api>
    (Free: 100 Suchen/Tag, 4 pro 30 Sekunden).
 3. Deine Telegram-User-ID herausfinden (z. B. über [@userinfobot](https://t.me/userinfobot)).
-4. Konfiguration anlegen:
-   ```bash
-   cp .env.example .env
-   # TELEGRAM_BOT_TOKEN, SAUCENAO_API_KEY und ALLOWED_USER_IDS eintragen
-   ```
+4. Konfiguration anlegen: `einstellungen-vorlage.txt` kopieren, die Kopie `einstellungen.txt` nennen und
+   `TELEGRAM_BOT_TOKEN`, `SAUCENAO_API_KEY` und `ALLOWED_USER_IDS` eintragen.
+   (Alternativ funktioniert auch eine `.env`-Datei, Vorlage `.env.example`.)
 
 ### Starten mit Docker
 
 ```bash
 docker compose up -d --build
 ```
+
+(Docker liest nur die `.env`-Datei – für Docker also `.env.example` nach `.env` kopieren.)
 
 ### Starten ohne Docker (Python ≥ 3.10)
 
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 python -m bot
 ```
 
-## Konfiguration (`.env`)
+## Konfiguration (`einstellungen.txt` bzw. `.env`)
 
 | Variable | Standard | Beschreibung |
 |---|---|---|

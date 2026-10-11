@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -35,10 +36,17 @@ class Config:
 
     @classmethod
     def from_env(cls) -> "Config":
-        load_dotenv()
+        # einstellungen.txt (einfach unter Windows/Mac zu bearbeiten) oder .env
+        for name in ("einstellungen.txt", ".env"):
+            path = Path(name)
+            if path.is_file():
+                load_dotenv(path, encoding="utf-8-sig")
         token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
         if not token:
-            raise SystemExit("TELEGRAM_BOT_TOKEN ist nicht gesetzt (siehe .env.example).")
+            raise SystemExit(
+                "TELEGRAM_BOT_TOKEN ist nicht gesetzt. Trag ihn in einstellungen.txt ein "
+                "(Vorlage: einstellungen-vorlage.txt) und starte den Bot im selben Ordner."
+            )
 
         allowed = frozenset(
             int(part)
